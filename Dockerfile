@@ -1,4 +1,4 @@
-FROM ubuntu:18.04 AS build
+FROM debian:buster AS build
 
 WORKDIR /pytorch
 
@@ -8,7 +8,8 @@ RUN apt-get update && \
         cmake \
         git \
         ca-certificates \
-        libopenblas-dev libblas-dev m4 cmake cython python3-dev python3-yaml python3-setuptools && \
+        libopenblas-dev libblas-dev m4 \
+        python3-dev python3-yaml python3-setuptools && \
      rm -rf /var/lib/apt/lists/*
 
 ENV VERSION=v1.5.0
@@ -20,18 +21,14 @@ RUN git clone https://github.com/pytorch/pytorch.git \
 
 COPY build.sh /pytorch/
 
-RUN bash /pytorch/build.sh
-
-COPY install.sh /pytorch/
-
-RUN bash /pytorch/install.sh
+RUN bash build.sh
 
 
-FROM ubuntu:18.04
+FROM debian:buster-slim
 
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
         python3 libopenblas-dev libgomp1 && \
-     rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/*
 
-COPY --from=build /usr/local/lib/python3.6/dist-packages /usr/local/lib/python3.6/dist-packages
+COPY --from=build /usr/local/lib/python3.7/dist-packages /usr/local/lib/python3.7/dist-packages
