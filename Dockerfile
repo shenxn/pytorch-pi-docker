@@ -8,9 +8,11 @@ RUN apt-get update && \
         cmake \
         git \
         ca-certificates \
-        libopenblas-dev libblas-dev m4 \
+        libopenblas-dev \
+        libblas-dev \
+        m4 \
         python3-dev python3-yaml python3-setuptools && \
-     rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/*
 
 ENV VERSION=v1.5.0
 
