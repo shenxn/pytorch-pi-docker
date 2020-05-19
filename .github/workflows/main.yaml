@@ -8,7 +8,7 @@ on:
     - build.sh
     - Dockerfile
     - VERSION
-    - .github/workflows/main.yml
+    - .github/workflows/main.yaml
 
 env:
   DOCKER_TAG: shenxn/pytorch-pi
@@ -34,7 +34,7 @@ jobs:
     - name: Docker build
       run: |
         docker buildx build \
-          --platform linux/arm/v6, linux/arm/v7 \
+          --platform linux/arm/v6,linux/arm/v7 \
           --build-arg ARG_VERSION=${RELEASE} \
           --tag ${DOCKER_TAG}:latest --tag ${DOCKER_TAG}:${RELEASE} \
           --push .
