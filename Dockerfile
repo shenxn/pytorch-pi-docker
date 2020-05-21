@@ -29,6 +29,7 @@ RUN bash build.sh
 
 
 FROM debian:buster-slim
+LABEL maintainer="Xiaonan Shen <s@sxn.dev>"
 
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
