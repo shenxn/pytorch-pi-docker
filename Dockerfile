@@ -15,7 +15,7 @@ RUN apt-get update && \
         libopenblas-dev \
         libblas-dev \
         m4 \
-        python3-dev python3-yaml python3-setuptools && \
+        python3-dev python3-yaml python3-setuptools python3-numpy && \
     rm -rf /var/lib/apt/lists/*
 
 RUN git clone https://github.com/pytorch/pytorch.git \
@@ -32,7 +32,7 @@ FROM debian:buster-slim
 
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-        python3 libopenblas-dev libgomp1 && \
+        python3 python3-numpy libopenblas-dev libgomp1 && \
     rm -rf /var/lib/apt/lists/*
 
 COPY --from=build /usr/local/lib/python3.7/dist-packages /usr/local/lib/python3.7/dist-packages
